@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 import javax.swing.*;
 
 public final class Main extends JFrame implements ActionListener {
-
+    
     private static final long serialVersionUID = 1L;
     private static ArrayList names = new ArrayList();
     private static JFrame frame;
@@ -31,13 +31,19 @@ public final class Main extends JFrame implements ActionListener {
     private static JButton eight = new JButton("8");
     private static JButton nine = new JButton("9");
     private static JButton zero = new JButton("0");
-
+    private static JButton addi = new JButton("+");
+    private static JButton min = new JButton("-");
+    private static JButton div = new JButton("/");
+    private static JButton mul = new JButton("*");
+    private static JButton eq = new JButton("=");
+    private static JButton cl = new JButton("C");
+    
     public Main() throws FileNotFoundException {
         frame = new JFrame("ACM Raffle Draw");
         frame.setSize(1027, 768);
         frame.setLayout(null);
         frame.setLocationRelativeTo(null);    //center
-        display.setBounds(0, 60, 180, 20);
+        display.setBounds(0, 60, 255, 20);
         
         seven.setBounds(0, 80, 60, 20);
         seven.addActionListener(this);
@@ -69,6 +75,24 @@ public final class Main extends JFrame implements ActionListener {
         six.setBounds(130, 100, 60, 20);
         six.addActionListener(this);
         
+        addi.setBounds(195, 120, 60, 20);
+        addi.addActionListener(this);
+        
+        min.setBounds(195, 80, 60, 20);
+        min.addActionListener(this);
+        
+        div.setBounds(195, 100, 60, 20);
+        div.addActionListener(this);
+        
+        mul.setBounds(195, 140, 60, 20);
+        mul.addActionListener(this);
+        
+        eq.setBounds(130, 140, 60, 20);
+        eq.addActionListener(this);
+        
+        cl.setBounds(0, 140, 60, 20);
+        cl.addActionListener(this);
+        
         start.setBounds(0, 0, 70, 20);
         start.setLayout(null);
         start.addActionListener(this);//for something to happen when start is clicked
@@ -84,6 +108,12 @@ public final class Main extends JFrame implements ActionListener {
         frame.add(eight);
         frame.add(nine);
         frame.add(zero);
+        frame.add(addi);
+        frame.add(div);
+        frame.add(mul);
+        frame.add(min);
+        frame.add(eq);
+        frame.add(cl);
         frame.setResizable(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Scanner in = new Scanner(new FileReader("input.txt"));//read from input.txt
@@ -100,35 +130,53 @@ public final class Main extends JFrame implements ActionListener {
             new Candidates().start();   //run Candidates thread
             start.setEnabled(false);    //disable start button (para di abuso :) )
         }
-        if (e.getSource()==one){
+        if (e.getSource() == one) {
             display.setText("1");
         }
-        if (e.getSource()==two){
+        if (e.getSource() == two) {
             display.setText("2");
         }
-        if (e.getSource()==three){
+        if (e.getSource() == three) {
             display.setText("3");
         }
-        if (e.getSource()==four){
+        if (e.getSource() == four) {
             display.setText("4");
         }
-        if (e.getSource()==five){
+        if (e.getSource() == five) {
             display.setText("5");
         }
-        if (e.getSource()==six){
+        if (e.getSource() == six) {
             display.setText("6");
         }
-        if (e.getSource()==seven){
+        if (e.getSource() == seven) {
             display.setText("7");
         }
-        if (e.getSource()==eight){
+        if (e.getSource() == eight) {
             display.setText("8");
         }
-        if (e.getSource()==nine){
+        if (e.getSource() == nine) {
             display.setText("9");
         }
-        if (e.getSource()==zero){
+        if (e.getSource() == zero) {
             display.setText("0");
+        }
+        if (e.getSource() == addi) {
+            display.setText("+");
+        }
+        if (e.getSource() == mul) {
+            display.setText("*");
+        }
+        if (e.getSource() == div) {
+            display.setText("/");
+        }
+        if (e.getSource() == min) {
+            display.setText("-");
+        }
+        if (e.getSource() == eq) {
+            display.setText("=");
+        }
+        if (e.getSource() == cl) {
+            display.setText(" ");
         }
     }//end action performed()
 
@@ -136,9 +184,9 @@ public final class Main extends JFrame implements ActionListener {
         Main gui = new Main();
         gui.frame.setVisible(true);
     }
-
+    
     public class Candidates extends Thread {
-
+        
         public void run() {
             String win;
             int i = 0;
@@ -150,7 +198,7 @@ public final class Main extends JFrame implements ActionListener {
             winLabel.setBounds(randomX, randomY, 290, 20);  //set winLabel location
             winLabel.setLayout(null);
             frame.add(winLabel);
-
+            
             for (i = 0; i < names.size(); i++) {  //add all the names in random locations
                 label[i] = new JLabel(names.get(i).toString());   //put name into a JLabel
                 label[i].setFont(new Font("Arial", Font.PLAIN, 25));
